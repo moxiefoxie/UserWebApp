@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="SendGrid, Version=6.3.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\Sendgrid.6.3.4\lib\SendGrid.dll</HintPath>
@@ -132,12 +138,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -188,6 +188,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -205,39 +206,51 @@
     <Compile Include="Migrations\202102172150111_Role.Designer.cs">
       <DependentUpon>202102172150111_Role.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102172320264_FirstName.cs" />
+    <Compile Include="Migrations\202102172320264_FirstName.Designer.cs">
+      <DependentUpon>202102172320264_FirstName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102172333115_LastName.cs" />
+    <Compile Include="Migrations\202102172333115_LastName.Designer.cs">
+      <DependentUpon>202102172333115_LastName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102172339582_LastName1.cs" />
+    <Compile Include="Migrations\202102172339582_LastName1.Designer.cs">
+      <DependentUpon>202102172339582_LastName1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>FullIdentityModel.tt</DependentUpon>
+      <DependentUpon>IdentityModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>FullIdentityModel.tt</DependentUpon>
+      <DependentUpon>IdentityModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>FullIdentityModel.tt</DependentUpon>
+      <DependentUpon>IdentityModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>FullIdentityModel.tt</DependentUpon>
+      <DependentUpon>IdentityModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>FullIdentityModel.tt</DependentUpon>
+      <DependentUpon>IdentityModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FullIdentityModel.Context.cs">
+    <Compile Include="Models\IdentityModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FullIdentityModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FullIdentityModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FullIdentityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FullIdentityModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FullIdentityModel.edmx</DependentUpon>
+      <DependentUpon>IdentityModels.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IdentityModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IdentityModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IdentityModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -257,15 +270,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\FullIdentityModel.Context.tt">
+    <Content Include="Models\IdentityModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FullIdentityModel.edmx</DependentUpon>
-      <LastGenOutput>FullIdentityModel.Context.cs</LastGenOutput>
+      <DependentUpon>IdentityModels.edmx</DependentUpon>
+      <LastGenOutput>IdentityModels.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FullIdentityModel.tt">
+    <Content Include="Models\IdentityModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FullIdentityModel.edmx</DependentUpon>
-      <LastGenOutput>FullIdentityModel.cs</LastGenOutput>
+      <DependentUpon>IdentityModels.edmx</DependentUpon>
+      <LastGenOutput>IdentityModels1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -287,10 +300,10 @@
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
     <EntityDeploy Include="Models\FullIdentityModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FullIdentityModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>IdentityModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\FullIdentityModel.edmx.diagram">
-      <DependentUpon>FullIdentityModel.edmx</DependentUpon>
+    <Content Include="Models\IdentityModels.edmx.diagram">
+      <DependentUpon>IdentityModels.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -337,8 +350,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
-    <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
+    <Content Include="Views\AspNetUsers\Create.cshtml" />
+    <Content Include="Views\AspNetUsers\Delete.cshtml" />
+    <Content Include="Views\AspNetUsers\Details.cshtml" />
+    <Content Include="Views\AspNetUsers\Edit.cshtml" />
+    <Content Include="Views\AspNetUsers\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -363,6 +382,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102172150111_Role.resx">
       <DependentUpon>202102172150111_Role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102172320264_FirstName.resx">
+      <DependentUpon>202102172320264_FirstName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102172333115_LastName.resx">
+      <DependentUpon>202102172333115_LastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102172339582_LastName1.resx">
+      <DependentUpon>202102172339582_LastName1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
