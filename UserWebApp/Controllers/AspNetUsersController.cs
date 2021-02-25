@@ -12,7 +12,7 @@ namespace UserWebApp.Controllers
 {
     public class AspNetUsersController : Controller
     {
-        private Entities2 db = new Entities2();
+        private UserWebApp_dbEntities db = new UserWebApp_dbEntities();
 
         // GET: AspNetUsers
         public ActionResult Index()

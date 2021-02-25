@@ -12,7 +12,7 @@ namespace UserWebApp.Controllers
 {
     public class ChartOfAccountsController : Controller
     {
-        private Entities2 db = new Entities2();
+        private UserWebApp_dbEntities db = new UserWebApp_dbEntities();
 
         // GET: ChartOfAccounts
         public ActionResult Index()
