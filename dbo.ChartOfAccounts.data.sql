@@ -1,0 +1,1 @@
+﻿INSERT INTO [dbo].[ChartOfAccounts] ([AccountNumber], [AccoutnDesc], [NormalSide], [Category], [Subcategory], [InitialBalance], [Debit], [Credit], [DateCreated], [Balance], [UserID], [Order], [Statement], [Comment], [AccountName]) VALUES ('101', 'Money not deposited', 'Debit', NULL, NULL, '0.00', NULL, NULL, '2/24/2021', NULL, NULL, NULL, NULL, NULL, 'Cash')

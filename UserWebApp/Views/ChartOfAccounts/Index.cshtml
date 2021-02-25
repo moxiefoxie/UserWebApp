@@ -1,0 +1,36 @@
+﻿@model IEnumerable<UserWebApp.Models.ChartOfAccount>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+        
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.AccountNumber.ToString()}) |
+            @Html.ActionLink("Details", "Details", new { id = item.AccountNumber }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.AccountNumber })
+        </td>
+</tr>
+}
+
+</table>

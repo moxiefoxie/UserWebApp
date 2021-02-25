@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -73,6 +73,26 @@
           <Property Name="FirstName" Type="nvarchar(max)" />
           <Property Name="LastName" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="ChartOfAccounts">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="int" Nullable="false" />
+          <Property Name="AccountName" Type="nvarchar(max)" />
+          <Property Name="AccountDescription" Type="nvarchar(max)" />
+          <Property Name="NormalSide" Type="nchar" MaxLength="10" />
+          <Property Name="Category" Type="nchar" MaxLength="10" />
+          <Property Name="Subcategory" Type="nchar" MaxLength="10" />
+          <Property Name="InitialBalance" Type="money" />
+          <Property Name="Debit" Type="nchar" MaxLength="10" />
+          <Property Name="Credit" Type="nchar" MaxLength="10" />
+          <Property Name="Balance" Type="money" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Order" Type="nchar" MaxLength="10" />
+          <Property Name="Statement" Type="nchar" MaxLength="10" />
+          <Property Name="Comment" Type="nchar" MaxLength="10" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -136,6 +156,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccounts" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -153,8 +174,7 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -274,7 +294,28 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="ChartOfAccounts" EntityType="Model.ChartOfAccount" />
         </EntityContainer>
+        <EntityType Name="ChartOfAccount">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NormalSide" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Subcategory" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Debit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Credit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Order" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Statement" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -351,6 +392,27 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ChartOfAccounts">
+            <EntityTypeMapping TypeName="Model.ChartOfAccount">
+              <MappingFragment StoreEntitySet="ChartOfAccounts">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Statement" ColumnName="Statement" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
+                <ScalarProperty Name="Subcategory" ColumnName="Subcategory" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="NormalSide" ColumnName="NormalSide" />
+                <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

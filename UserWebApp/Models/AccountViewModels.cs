@@ -84,7 +84,9 @@ namespace UserWebApp.Models
         [Required]
         [Display(Name = "Date of Birth (mm/dd/yyyy")]
         public DateTime BirthDate { get; set; }
-          public String Role { get; set; }
+
+        public String Role { get; set; }
+
         [Required]
         [Display(Name = "First Name")]
         public String FirstName { get; set; }

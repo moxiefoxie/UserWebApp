@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
+    <Compile Include="Controllers\ChartOfAccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -227,6 +228,9 @@
       <DependentUpon>IdentityModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>IdentityModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChartOfAccount.cs">
       <DependentUpon>IdentityModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
@@ -330,6 +334,11 @@
     <Content Include="Views\AspNetUsers\Details.cshtml" />
     <Content Include="Views\AspNetUsers\Edit.cshtml" />
     <Content Include="Views\AspNetUsers\Index.cshtml" />
+    <Content Include="Views\ChartOfAccounts\Create.cshtml" />
+    <Content Include="Views\ChartOfAccounts\Delete.cshtml" />
+    <Content Include="Views\ChartOfAccounts\Details.cshtml" />
+    <Content Include="Views\ChartOfAccounts\Edit.cshtml" />
+    <Content Include="Views\ChartOfAccounts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
