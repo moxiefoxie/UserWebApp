@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="UserWebApp_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="UserWebApp_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="__MigrationHistory">
@@ -77,8 +77,6 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <Property Name="FirstName" Type="nvarchar(max)" />
           <Property Name="LastName" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'UserWebApp_db.dbo.ChartOfAccounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ChartOfAccounts">
           <Key>
             <PropertyRef Name="AccountNumber" />
@@ -95,9 +93,33 @@ warning 6002: The table/view 'UserWebApp_db.dbo.ChartOfAccounts' does not have a
           <Property Name="Balance" Type="money" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="UserID" Type="int" />
-          <Property Name="Order" Type="nchar" MaxLength="10" />
-          <Property Name="Statement" Type="nchar" MaxLength="10" />
+          <Property Name="Orders" Type="nchar" MaxLength="10" />
+          <Property Name="Statements" Type="nchar" MaxLength="10" />
           <Property Name="Comment" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="int" Nullable="false" />
+          <Property Name="AccountName" Type="nvarchar(max)" />
+          <Property Name="AccountDescription" Type="nvarchar(max)" />
+          <Property Name="NormalSide" Type="nchar" MaxLength="10" />
+          <Property Name="Category" Type="nchar" MaxLength="10" />
+          <Property Name="Subcategory" Type="nchar" MaxLength="10" />
+          <Property Name="InitialBalance" Type="money" />
+          <Property Name="Debit" Type="nchar" MaxLength="10" />
+          <Property Name="Credit" Type="nchar" MaxLength="10" />
+          <Property Name="Balance" Type="money" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Orders" Type="nchar" MaxLength="10" />
+          <Property Name="Statements" Type="nchar" MaxLength="10" />
+          <Property Name="Comment" Type="nchar" MaxLength="10" />
+          <Property Name="DataModel" Type="nvarchar" MaxLength="100" />
+          <Property Name="Changes" Type="nvarchar(max)" />
+          <Property Name="ValueBefore" Type="nvarchar(max)" />
+          <Property Name="ValueAfter" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -165,6 +187,8 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventLog" EntityType="Self.EventLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [__MigrationHistory].[MigrationId] AS [MigrationId], 
@@ -172,25 +196,6 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
     [__MigrationHistory].[Model] AS [Model], 
     [__MigrationHistory].[ProductVersion] AS [ProductVersion]
     FROM [dbo].[__MigrationHistory] AS [__MigrationHistory]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccounts" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ChartOfAccounts].[AccountNumber] AS [AccountNumber], 
-    [ChartOfAccounts].[AccountName] AS [AccountName], 
-    [ChartOfAccounts].[AccountDescription] AS [AccountDescription], 
-    [ChartOfAccounts].[NormalSide] AS [NormalSide], 
-    [ChartOfAccounts].[Category] AS [Category], 
-    [ChartOfAccounts].[Subcategory] AS [Subcategory], 
-    [ChartOfAccounts].[InitialBalance] AS [InitialBalance], 
-    [ChartOfAccounts].[Debit] AS [Debit], 
-    [ChartOfAccounts].[Credit] AS [Credit], 
-    [ChartOfAccounts].[Balance] AS [Balance], 
-    [ChartOfAccounts].[DateCreated] AS [DateCreated], 
-    [ChartOfAccounts].[UserID] AS [UserID], 
-    [ChartOfAccounts].[Order] AS [Order], 
-    [ChartOfAccounts].[Statement] AS [Statement], 
-    [ChartOfAccounts].[Comment] AS [Comment]
-    FROM [dbo].[ChartOfAccounts] AS [ChartOfAccounts]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
@@ -215,8 +220,7 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UserWebApp_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -296,26 +300,6 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="ChartOfAccount">
-          <Key>
-            <PropertyRef Name="AccountNumber" />
-          </Key>
-          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
-          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AccountDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NormalSide" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Subcategory" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Debit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Credit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="Order" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Statement" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
             <PropertyRef Name="id" />
@@ -381,7 +365,6 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccount" />
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -395,7 +378,53 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <EntitySet Name="ChartOfAccounts" EntityType="UserWebApp_dbModel.ChartOfAccount" />
+          <EntitySet Name="EventLogs" EntityType="UserWebApp_dbModel.EventLog" />
         </EntityContainer>
+        <EntityType Name="ChartOfAccount">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NormalSide" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Subcategory" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Debit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Credit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Orders" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Statements" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NormalSide" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Subcategory" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Debit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Credit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Orders" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Statements" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DataModel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Changes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValueBefore" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValueAfter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -472,27 +501,6 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChartOfAccounts">
-            <EntityTypeMapping TypeName="UserWebApp_dbModel.ChartOfAccount">
-              <MappingFragment StoreEntitySet="ChartOfAccounts">
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
-                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
-                <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
-                <ScalarProperty Name="NormalSide" ColumnName="NormalSide" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Subcategory" ColumnName="Subcategory" />
-                <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
-                <ScalarProperty Name="Debit" ColumnName="Debit" />
-                <ScalarProperty Name="Credit" ColumnName="Credit" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="Statement" ColumnName="Statement" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="database_firewall_rules">
             <EntityTypeMapping TypeName="UserWebApp_dbModel.database_firewall_rules">
               <MappingFragment StoreEntitySet="database_firewall_rules">
@@ -502,6 +510,52 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
                 <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
                 <ScalarProperty Name="create_date" ColumnName="create_date" />
                 <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartOfAccounts">
+            <EntityTypeMapping TypeName="UserWebApp_dbModel.ChartOfAccount">
+              <MappingFragment StoreEntitySet="ChartOfAccounts">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Statements" ColumnName="Statements" />
+                <ScalarProperty Name="Orders" ColumnName="Orders" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
+                <ScalarProperty Name="Subcategory" ColumnName="Subcategory" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="NormalSide" ColumnName="NormalSide" />
+                <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventLogs">
+            <EntityTypeMapping TypeName="UserWebApp_dbModel.EventLog">
+              <MappingFragment StoreEntitySet="EventLog">
+                <ScalarProperty Name="ValueAfter" ColumnName="ValueAfter" />
+                <ScalarProperty Name="ValueBefore" ColumnName="ValueBefore" />
+                <ScalarProperty Name="Changes" ColumnName="Changes" />
+                <ScalarProperty Name="DataModel" ColumnName="DataModel" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Statements" ColumnName="Statements" />
+                <ScalarProperty Name="Orders" ColumnName="Orders" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
+                <ScalarProperty Name="Subcategory" ColumnName="Subcategory" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="NormalSide" ColumnName="NormalSide" />
+                <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

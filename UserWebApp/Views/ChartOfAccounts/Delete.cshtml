@@ -4,11 +4,16 @@
     ViewBag.Title = "Delete";
 }
 
+<img src="~/Content/Logo For App Domain.png" alt="logo" style="
+        display: block;
+        margin-top: 15px;
+        width: 10%;" />
+
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>ChartOfAccount</h4>
+    <h4>@Html.DisplayFor(modelItem => modelItem.AccountName)</h4>
     <hr />
     <dl class="dl-horizontal">
     </dl>
@@ -16,9 +21,10 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+        
+            <input type="submit" data-toggle="tooltip" title="Confirm the deletion of the account " data-placement="right" value="Delete" class="btn btn-default" /> 
+    <div class="form-actions no-color" data-toggle="tooltip" title="Return back to the Chart of Accounts" data-placement="right">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
     }
 </div>

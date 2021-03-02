@@ -13,10 +13,10 @@ namespace UserWebApp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities2 : DbContext
+    public partial class UserWebApp_dbEntities1 : DbContext
     {
-        public Entities2()
-            : base("name=Entities2")
+        public UserWebApp_dbEntities1()
+            : base("name=UserWebApp_dbEntities1")
         {
         }
     
@@ -25,11 +25,12 @@ namespace UserWebApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<ChartOfAccount> ChartOfAccounts { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
     }
 }

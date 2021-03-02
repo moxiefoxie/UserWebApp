@@ -4,56 +4,153 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<img src="~/Content/Logo For App Domain.png" alt="logo" style="
+        display: block;
+        margin-top: 15px;
+        margin-left: 15%;
+        width: 10%;" />
+
+<h2 style ="margin-left: 15%;">Edit</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>ChartOfAccount</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.AccountNumber)
+<div class="form-horizontal">
+    <h4 style="margin-left: 15%;">@Html.DisplayFor(modelItem => modelItem.AccountName)</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.AccoutnDesc)
+    <div class="form-group">
+        @Html.LabelFor(model => model.AccountDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AccountDescription, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AccountDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.NormalSide)
+    <div class="form-group">
+        @Html.LabelFor(model => model.NormalSide, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NormalSide, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NormalSide, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.Category)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.Subcategory)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Subcategory, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Subcategory, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Subcategory, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.InitialBalance)
+    <div class="form-group">
+        @Html.LabelFor(model => model.InitialBalance, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.InitialBalance, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.InitialBalance, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.Debit)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Debit, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Debit, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Debit, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.Credit)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Credit, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Credit, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Credit, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.DateCreated)
+    <div class="form-group">
+        @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.Balance)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Balance, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Balance, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Balance, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.UserID)
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.Order)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Orders, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Orders, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Orders, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.Statement)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Statements, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Statements, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Statements, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.Comment)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        @Html.HiddenFor(model => model.AccountName)
+    <div class="form-group">
+        @Html.LabelFor(model => model.AccountName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AccountName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AccountName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" data-toggle="tooltip" title="Save the changed data to the account" data-placement="right" value="Save" class="btn btn-default" Enabled='<%= HttpContext.Current.User.IsInRole("Admin") %>' />
             </div>
         </div>
-    </div>
+    
 }
 
-<div>
+<div data-toggle="tooltip" title="Return back to the Chart of Accounts" data-placement="right">
     @Html.ActionLink("Back to List", "Index")
 </div>
 

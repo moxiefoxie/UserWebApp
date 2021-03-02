@@ -1,19 +1,30 @@
 ﻿@model UserWebApp.Models.ChartOfAccount
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "EventLog";
+    
 }
+
 <img src="~/Content/Logo For App Domain.png" alt="logo" style="
         display: block;
         margin-top: 15px;
         margin-left: 10%;
         width: 10%;" />
-<h2 style="margin-left: 10%;">Details</h2>
+
+<h2 style="margin-left:10%;">EventLog</h2>
 
 <div>
-    <h4 style="margin-left: 10%;">@Html.DisplayFor(modelItem => modelItem.AccountName)</h4>
+    <h4 style="margin-left:10%;">ChartOfAccount</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.AccountName)
         </dt>
@@ -128,8 +139,6 @@
 
     </dl>
 </div>
-<p>
-    <div data-toggle="tooltip" title="Return back to the Chart of Accounts" data-placement="right">
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</p>
+<div data-toggle="tooltip" title="Return back to the Chart of Accounts" data-placement="right">
+    @Html.ActionLink("Back to List", "Index")
+</div>

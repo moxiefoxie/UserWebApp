@@ -1,36 +1,110 @@
-﻿@model IEnumerable<UserWebApp.Models.ChartOfAccount>
+﻿@using Microsoft.AspNet.Identity
+@using UserWebApp.Models
+
+@model IEnumerable<UserWebApp.Models.ChartOfAccount>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-        
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        
-        </th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-<tr>
-    
-        <td>
-            @Html.DisplayFor(modelItem => item.AccountNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.AccountNumber.ToString()}) |
-            @Html.ActionLink("Details", "Details", new { id = item.AccountNumber }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.AccountNumber })
-        </td>
-</tr>
-}
+<img src="~/Content/Logo For App Domain.png" alt="logo" style=" 
+        display: block;
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 10%;" />
 
-</table>
+<h2 class="text-center">Chart of Accounts</h2>
+
+
+<div class="row">
+    <div class="col" data-toggle="tooltip" title="Add an account to the Chart of Accounts" data-placement="right">
+        @Html.ActionLink("Create New", "Create", new { title = "Create a new account in Chart of Accounts" })
+    </div>
+    <div class="col text-right">
+        @using (Html.BeginForm())
+        {
+            <div style="margin-bottom:5px;">
+                Search: @Html.TextBox("SearchString")
+                <input data-toggle="tooltip" title="Search the Chart of Accounts by name or account number" data-placement="right" type="submit" value="Filter" />
+            </div>
+        }
+    </div>
+</div>
+        <table class="table">
+            <tr>
+                <th>
+
+                    @Html.ActionLink("Account Number", "Index", new {sortOrder = ViewBag.NumberSortParm})
+
+                </th>
+                <th>
+
+                    @Html.ActionLink("Account Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+
+                </th>
+                <th>
+
+                    Normal Side
+
+                </th>
+                <th>
+
+                    Category
+
+                </th>
+                <th>
+
+                    Balance
+
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td data-toggle="tooltip" title="Go to the ledger for the @item.AccountName account ">
+                        @Html.ActionLink(@item.AccountNumber.ToString(),"Ledger", new { id = item.AccountNumber})
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NormalSide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+
+
+
+                    <td data-toggle="tooltip" title="Edit, Delete, or view the Details of this account" data-placement="right">
+
+                        <div data-toggle="tooltip" title="Edit the @item.AccountName account" data-placement="right">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.AccountNumber })
+                        </div>
+                        <div data-toggle="tooltip" title="View the details of the @item.AccountName account" data-placement="right">
+                            @Html.ActionLink("Details", "Details", new { id = item.AccountNumber })
+                        </div>
+                        <div data-toggle="tooltip" title="Delete the @item.AccountName account" data-placement="right">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.AccountNumber })
+                        </div>
+                    </td>
+
+                    <td>
+                        <div data-toggle="tooltip" title="View the Event Log of the @item.AccountName account" data-placement="right">
+                            @Html.ActionLink("EventLog", "EventLog", new { id = item.AccountNumber })
+                        </div>
+                    </td>
+
+
+                </tr>
+            }
+
+        </table>

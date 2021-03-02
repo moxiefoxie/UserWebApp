@@ -31,7 +31,8 @@ namespace UserWebApp.Models
         public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<ChartOfAccount> ChartOfAccounts { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<ChartOfAccount> ChartOfAccounts { get; set; }
+        public virtual DbSet<EventLog> EventLogs { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace UserWebApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ChartOfAccount
+    public partial class EventLog
     {
         public int AccountNumber { get; set; }
         public string AccountName { get; set; }
@@ -29,5 +29,9 @@ namespace UserWebApp.Models
         public string Orders { get; set; }
         public string Statements { get; set; }
         public string Comment { get; set; }
+        public string DataModel { get; set; }
+        public string Changes { get; set; }
+        public string ValueBefore { get; set; }
+        public string ValueAfter { get; set; }
     }
 }
