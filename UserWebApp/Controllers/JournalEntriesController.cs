@@ -46,7 +46,7 @@ namespace UserWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "JournalID,DebitAccountNumber,CreditAccountNumber,Amount,Status")] JournalEntry journalEntry)
+        public ActionResult Create([Bind(Include = "JournalID,DebitAccountNumber,CreditAccountNumber,Amount,Status")] JournalEntry journalEntry, ChartOfAccount chartOfAccount)
         {
             if (ModelState.IsValid)
             {
@@ -72,11 +72,12 @@ namespace UserWebApp.Controllers
                     {
                         continue;
                     }
-                    else
+                    else if(c.AccountNumber == journalEntry.DebitAccountNumber && c.NormalSide.Trim() == "Debit")
                     {
                         debitAccountExists = true;
                         break;
                     }
+                    
                 }
 
                 foreach (ChartOfAccount c in db.ChartOfAccounts)
@@ -85,7 +86,7 @@ namespace UserWebApp.Controllers
                     {
                         continue;
                     }
-                    else
+                    else if(c.AccountNumber == journalEntry.CreditAccountNumber && c.NormalSide.Trim() == "Credit")
                     {
                         creditAccountExists = true;
                         break;
@@ -145,7 +146,7 @@ namespace UserWebApp.Controllers
                 //journalEntry.Status = "Pending Approval";
                 //db.JournalEntries.Add(journalEntry);
                 //db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
 
             return View(journalEntry);
