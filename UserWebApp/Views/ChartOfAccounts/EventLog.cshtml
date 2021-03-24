@@ -1,8 +1,9 @@
-﻿@model UserWebApp.Models.ChartOfAccount
+﻿@model IEnumerable<UserWebApp.Models.ChartOfAccount>
+
 
 @{
     ViewBag.Title = "EventLog";
-    
+
 }
 
 <img src="~/Content/Logo For App Domain.png" alt="logo" style="
@@ -13,132 +14,73 @@
 
 <h2 style="margin-left:10%;">EventLog</h2>
 
-<div>
-    <h4 style="margin-left:10%;">ChartOfAccount</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </dt>
+<table class="table">
+    <tr>
+        <th>Account Number</th>
+        <th>Account Name</th>
+        <th>Account Description</th>
+        <th>Normal Side</th>
+        <th>Category</th>
+        <th>Sub-Category</th>
+        <th>Initial Balance</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Balance</th>
+        <th>Added On</th>
+        <th>User Id</th>
+        <th>Order</th>
+        <th>Statement</th>
+        <th>Comment</th>
+        <th></th>
+    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.AccountNumber)
-        </dd>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NormalSide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subcategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InitialBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Debit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Orders)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Statements)
+            </td>
+        </tr>
+    }
+</table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AccountName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccountDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NormalSide)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NormalSide)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Subcategory)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Subcategory)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InitialBalance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InitialBalance)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Debit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Debit)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Credit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Credit)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Orders)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Orders)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Statements)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Statements)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-
-    </dl>
-</div>
 <div data-toggle="tooltip" title="Return back to the Chart of Accounts" data-placement="right">
     @Html.ActionLink("Back to List", "Index")
 </div>

@@ -144,7 +144,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" data-toggle="tooltip" title="Save the changed data to the account" data-placement="right" value="Save" class="btn btn-default" Enabled='<%= HttpContext.Current.User.IsInRole("Admin") %>' />
+                <input type="submit" data-toggle="tooltip" title="Save the changed data to the account" data-placement="right" value="Save" class="btn btn-default" Enabled="@HttpContext.Current.User.IsInRole("Admin")" />
             </div>
         </div>
     

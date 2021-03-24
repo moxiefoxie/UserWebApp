@@ -155,6 +155,10 @@ namespace UserWebApp.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var currentUser = UserManager.FindByName(user.UserName);
+
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "Accountant");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
 
@@ -172,6 +176,22 @@ namespace UserWebApp.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //internal void AddUserToRole(string email, string roleName)
+        //{
+        //    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+        //    try
+        //    {
+        //        var user = UserManager.FindByName(email);
+        //        UserManager.AddToRole(user.Id, roleName);
+        //        context.SaveChanges();
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
 
         //
         // GET: /Account/ConfirmEmail

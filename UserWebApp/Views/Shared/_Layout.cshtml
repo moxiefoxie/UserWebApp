@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
-@*@model IEnumerable<UserWebApp.Models.AspNetUser>*@
-@model dynamic
+@model IEnumerable<UserWebApp.Models.AspNetUser>
+
 
 <!DOCTYPE html>
 <html>
@@ -26,12 +26,12 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Journals", "About", "Home")</li>
+                    <li>@Html.ActionLink("Journals", "Index", "Journal")</li>
                     <li>@Html.ActionLink("Accounts", "Index", "ChartOfAccounts")</li>
-                    <li>@Html.ActionLink("Admin", "Index", "AspNetUsers")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                    <li Enable ="@HttpContext.Current.User.IsInRole("Admin")">@Html.ActionLink("Admin", "Index", "AspNetUsers")</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
         </div>
     </div>
     <div class="container body-content">

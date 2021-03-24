@@ -17,20 +17,20 @@ namespace UserWebApp.Controllers
         private UserWebApp_dbEntities db = new UserWebApp_dbEntities();
         
 
-        public ActionResult EventLog(int id)
-        {
+        //public ActionResult EventLog(string accountNumber)
+        //{
             
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ChartOfAccount chartOfAccount = db.ChartOfAccounts.Find(id);
-            if (chartOfAccount == null)
-            {
-                return HttpNotFound();
-            }
-            return View(chartOfAccount);
-        }
+        //    if (String.IsNullOrEmpty(accountNumber))
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    ChartOfAccount chartOfAccount = db.ChartOfAccounts.Find(accountNumber);
+        //    if (chartOfAccount == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(chartOfAccount);
+        //}
 
         // GET: ChartOfAccounts
         public ActionResult Index(String sortOrder, String searchString)
@@ -243,7 +243,20 @@ namespace UserWebApp.Controllers
             }
             return View(chartOfAccount);
         }
-        
+
+        public ActionResult EventLog(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ChartOfAccount chartOfAccount = db.ChartOfAccounts.Find(id);
+            if (chartOfAccount == null)
+            {
+                return HttpNotFound();
+            }
+            return View(chartOfAccount);
+        }
 
     }
 }
