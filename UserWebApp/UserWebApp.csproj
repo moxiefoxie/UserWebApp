@@ -203,6 +203,7 @@
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\ChartOfAccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JournalEntriesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -276,6 +277,9 @@
       <DependentUpon>IdentityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JournalEntry.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -399,9 +403,16 @@
     <Content Include="Views\ChartOfAccounts\Index.cshtml" />
     <Content Include="Views\ChartOfAccounts\EventLog.cshtml" />
     <Content Include="Views\ChartOfAccounts\Ledger.cshtml" />
+    <Content Include="Views\ChartOfAccounts\JournalEntry.cshtml" />
+    <Content Include="Views\JournalEntries\Create.cshtml" />
+    <Content Include="Views\JournalEntries\Delete.cshtml" />
+    <Content Include="Views\JournalEntries\Details.cshtml" />
+    <Content Include="Views\JournalEntries\Edit.cshtml" />
+    <Content Include="Views\JournalEntries\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Journals\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<UserWebApp.Models.JournalEntry>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Journal Entries</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JournalID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DebitAccountNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreditAccountNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <th>
+        @Html.DisplayFor(modelItem => item.JournalID)
+    </th>
+    <td>
+        @Html.DisplayFor(modelItem => item.DebitAccountNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreditAccountNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @Html.ActionLink("Approve", "Approve", new { id = item.JournalID }) |
+        @Html.ActionLink("Decline", "Decline", new { id = item.JournalID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.JournalID }) 
+
+    </td>
+</tr>
+}
+
+</table>

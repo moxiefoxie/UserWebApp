@@ -243,7 +243,13 @@ namespace UserWebApp.Controllers
             }
             return View(chartOfAccount);
         }
-        
 
+        public ActionResult JournalEntry()
+        {
+            
+            return View();
+        }
+
+        
     }
 }

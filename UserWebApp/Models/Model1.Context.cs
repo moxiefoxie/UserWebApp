@@ -32,5 +32,6 @@ namespace UserWebApp.Models
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<ChartOfAccount> ChartOfAccounts { get; set; }
+        public virtual DbSet<JournalEntry> JournalEntries { get; set; }
     }
 }

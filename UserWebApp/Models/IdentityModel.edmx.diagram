@@ -17,6 +17,7 @@
         <AssociationConnector Association="UserWebApp_dbModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <EntityTypeShape EntityType="UserWebApp_dbModel.ChartOfAccount" Width="1.5" PointX="5.375" PointY="6.75" />
         <EntityTypeShape EntityType="UserWebApp_dbModel.EventLog" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="UserWebApp_dbModel.JournalEntry" Width="1.5" PointX="0.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

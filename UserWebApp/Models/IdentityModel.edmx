@@ -121,6 +121,16 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <Property Name="ValueBefore" Type="nvarchar(max)" />
           <Property Name="ValueAfter" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="JournalEntries">
+          <Key>
+            <PropertyRef Name="JournalID" />
+          </Key>
+          <Property Name="JournalID" Type="int" Nullable="false" />
+          <Property Name="DebitAccountNumber" Type="int" Nullable="false" />
+          <Property Name="CreditAccountNumber" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="database_firewall_rules">
@@ -189,6 +199,7 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventLog" EntityType="Self.EventLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JournalEntries" EntityType="Self.JournalEntries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [__MigrationHistory].[MigrationId] AS [MigrationId], 
@@ -380,6 +391,7 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
           </AssociationSet>
           <EntitySet Name="ChartOfAccounts" EntityType="UserWebApp_dbModel.ChartOfAccount" />
           <EntitySet Name="EventLogs" EntityType="UserWebApp_dbModel.EventLog" />
+          <EntitySet Name="JournalEntries" EntityType="UserWebApp_dbModel.JournalEntry" />
         </EntityContainer>
         <EntityType Name="ChartOfAccount">
           <Key>
@@ -424,6 +436,16 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
           <Property Name="Changes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ValueBefore" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ValueAfter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JournalEntry">
+          <Key>
+            <PropertyRef Name="JournalID" />
+          </Key>
+          <Property Name="JournalID" Type="Int32" Nullable="false" />
+          <Property Name="DebitAccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="CreditAccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="2" Scale="0" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -556,6 +578,17 @@ warning 6002: The table/view 'UserWebApp_db.sys.database_firewall_rules' does no
                 <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
                 <ScalarProperty Name="AccountName" ColumnName="AccountName" />
                 <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JournalEntries">
+            <EntityTypeMapping TypeName="UserWebApp_dbModel.JournalEntry">
+              <MappingFragment StoreEntitySet="JournalEntries">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CreditAccountNumber" ColumnName="CreditAccountNumber" />
+                <ScalarProperty Name="DebitAccountNumber" ColumnName="DebitAccountNumber" />
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
