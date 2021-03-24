@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="UserWebApp_dbModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="UserWebApp_dbModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="__MigrationHistory">
@@ -167,8 +167,7 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UserWebApp_dbModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -236,26 +235,6 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetUserRoles" Relationship="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserRoles" />
         </EntityType>
-        <EntityType Name="ChartOfAccount">
-          <Key>
-            <PropertyRef Name="AccountNumber" />
-          </Key>
-          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
-          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AccountDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NormalSide" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Subcategory" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Debit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Credit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="Orders" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Statements" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -316,7 +295,6 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccount" />
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -330,7 +308,28 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <EntitySet Name="ChartOfAccounts" EntityType="UserWebApp_dbModel1.ChartOfAccount" />
         </EntityContainer>
+        <EntityType Name="ChartOfAccount">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NormalSide" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Subcategory" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Debit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Credit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Orders" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Statements" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -397,27 +396,6 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChartOfAccounts">
-            <EntityTypeMapping TypeName="UserWebApp_dbModel1.ChartOfAccount">
-              <MappingFragment StoreEntitySet="ChartOfAccounts">
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
-                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
-                <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
-                <ScalarProperty Name="NormalSide" ColumnName="NormalSide" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Subcategory" ColumnName="Subcategory" />
-                <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
-                <ScalarProperty Name="Debit" ColumnName="Debit" />
-                <ScalarProperty Name="Credit" ColumnName="Credit" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Orders" ColumnName="Orders" />
-                <ScalarProperty Name="Statements" ColumnName="Statements" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="UserWebApp_dbModel1.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -425,6 +403,27 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartOfAccounts">
+            <EntityTypeMapping TypeName="UserWebApp_dbModel1.ChartOfAccount">
+              <MappingFragment StoreEntitySet="ChartOfAccounts">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Statements" ColumnName="Statements" />
+                <ScalarProperty Name="Orders" ColumnName="Orders" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
+                <ScalarProperty Name="Subcategory" ColumnName="Subcategory" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="NormalSide" ColumnName="NormalSide" />
+                <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
