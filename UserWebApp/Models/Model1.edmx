@@ -85,12 +85,12 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <Property Name="AccountName" Type="nvarchar(max)" />
           <Property Name="AccountDescription" Type="nvarchar(max)" />
           <Property Name="NormalSide" Type="nchar" MaxLength="10" />
-          <Property Name="Category" Type="nchar" MaxLength="10" />
+          <Property Name="Category" Type="nchar" MaxLength="50" />
           <Property Name="Subcategory" Type="nchar" MaxLength="10" />
           <Property Name="InitialBalance" Type="money" />
           <Property Name="Debit" Type="nchar" MaxLength="10" />
           <Property Name="Credit" Type="nchar" MaxLength="10" />
-          <Property Name="Balance" Type="money" />
+          <Property Name="Balance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="UserID" Type="int" />
           <Property Name="Orders" Type="nchar" MaxLength="10" />
@@ -106,6 +106,22 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <Property Name="CreditAccountNumber" Type="int" Nullable="false" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateApproved" Type="date" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ledger">
+          <Key>
+            <PropertyRef Name="LedgerID" />
+          </Key>
+          <Property Name="LedgerID" Type="int" Nullable="false" />
+          <Property Name="DebitAccountNumber" Type="int" Nullable="false" />
+          <Property Name="CreditAccountNumber" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="NewBalance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateChanged" Type="date" />
+          <Property Name="DateApproved" Type="date" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -157,6 +173,7 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChartOfAccounts" EntityType="Self.ChartOfAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JournalEntry" EntityType="Self.JournalEntry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ledger" EntityType="Self.Ledger" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [__MigrationHistory].[MigrationId] AS [MigrationId], 
@@ -320,6 +337,7 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <EntitySet Name="ChartOfAccounts" EntityType="UserWebApp_dbModel1.ChartOfAccount" />
+          <EntitySet Name="Ledgers" EntityType="UserWebApp_dbModel1.Ledger" />
           <EntitySet Name="JournalEntries" EntityType="UserWebApp_dbModel1.JournalEntry" />
         </EntityContainer>
         <EntityType Name="ChartOfAccount">
@@ -330,17 +348,31 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AccountDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NormalSide" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Subcategory" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="InitialBalance" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Debit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Credit" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="UserID" Type="Int32" />
           <Property Name="Orders" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Statements" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Ledger">
+          <Key>
+            <PropertyRef Name="LedgerID" />
+          </Key>
+          <Property Name="LedgerID" Type="Int32" Nullable="false" />
+          <Property Name="DebitAccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="CreditAccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="NewBalance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateChanged" Type="DateTime" Precision="0" />
+          <Property Name="DateApproved" Type="DateTime" Precision="0" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="JournalEntry">
           <Key>
@@ -351,6 +383,8 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <Property Name="CreditAccountNumber" Type="Int32" Nullable="false" />
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateApproved" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -449,9 +483,26 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Ledgers">
+            <EntityTypeMapping TypeName="UserWebApp_dbModel1.Ledger">
+              <MappingFragment StoreEntitySet="Ledger">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="DateApproved" ColumnName="DateApproved" />
+                <ScalarProperty Name="DateChanged" ColumnName="DateChanged" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="NewBalance" ColumnName="NewBalance" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CreditAccountNumber" ColumnName="CreditAccountNumber" />
+                <ScalarProperty Name="DebitAccountNumber" ColumnName="DebitAccountNumber" />
+                <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="JournalEntries">
             <EntityTypeMapping TypeName="UserWebApp_dbModel1.JournalEntry">
               <MappingFragment StoreEntitySet="JournalEntry">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="DateApproved" ColumnName="DateApproved" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="CreditAccountNumber" ColumnName="CreditAccountNumber" />

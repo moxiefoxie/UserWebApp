@@ -12,14 +12,16 @@ namespace UserWebApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class JournalEntry
+    public partial class Ledger
     {
-        public int JournalID { get; set; }
+        public int LedgerID { get; set; }
         public int DebitAccountNumber { get; set; }
         public int CreditAccountNumber { get; set; }
         public decimal Amount { get; set; }
+        public decimal NewBalance { get; set; }
         public string Status { get; set; }
-        public System.DateTime DateApproved { get; set; }
+        public Nullable<System.DateTime> DateChanged { get; set; }
+        public Nullable<System.DateTime> DateApproved { get; set; }
         public string Comment { get; set; }
     }
 }

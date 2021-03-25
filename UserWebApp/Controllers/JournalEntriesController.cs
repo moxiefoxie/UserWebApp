@@ -46,13 +46,14 @@ namespace UserWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "JournalID,DebitAccountNumber,CreditAccountNumber,Amount,Status")] JournalEntry journalEntry, ChartOfAccount chartOfAccount)
+        public ActionResult Create([Bind(Include = "JournalID,DebitAccountNumber,CreditAccountNumber,Amount")] JournalEntry journalEntry, ChartOfAccount chartOfAccount)
         {
             if (ModelState.IsValid)
             {
                 bool journalIdExists = false;
                 bool debitAccountExists = false;
                 bool creditAccountExists = false;
+                bool validBalance = false;
                 foreach (JournalEntry je in db.JournalEntries)
                 {
                     if (je.JournalID != journalEntry.JournalID)
@@ -72,12 +73,20 @@ namespace UserWebApp.Controllers
                     {
                         continue;
                     }
-                    else if(c.AccountNumber == journalEntry.DebitAccountNumber && c.NormalSide.Trim() == "Debit")
+                    else if (c.AccountNumber == journalEntry.DebitAccountNumber && c.NormalSide.Trim() == "Debit")
                     {
+
                         debitAccountExists = true;
+                        if (c.Balance >= journalEntry.Amount)
+                        {
+                            validBalance = true;
+                        }
+
                         break;
+
+
                     }
-                    
+
                 }
 
                 foreach (ChartOfAccount c in db.ChartOfAccounts)
@@ -86,50 +95,67 @@ namespace UserWebApp.Controllers
                     {
                         continue;
                     }
-                    else if(c.AccountNumber == journalEntry.CreditAccountNumber && c.NormalSide.Trim() == "Credit")
+                    else if (c.AccountNumber == journalEntry.CreditAccountNumber && c.NormalSide.Trim() == "Credit")
                     {
                         creditAccountExists = true;
                         break;
                     }
                 }
 
-                //True True True
-                if (journalIdExists && debitAccountExists && creditAccountExists)
+                //True True True True
+                if (journalIdExists && debitAccountExists && creditAccountExists && validBalance)
                 {
                     ModelState.AddModelError("JournalID", "An journal Entry with this ID already exists");
                 }
-
-                //True True False
-                if (journalIdExists && debitAccountExists && !creditAccountExists)
+                //True True True False
+                if (journalIdExists && debitAccountExists && creditAccountExists && !validBalance)
+                {
+                    ModelState.AddModelError("JournalID", "An journal Entry with this ID already exists");
+                    ModelState.AddModelError("DebitAccountNumber", "There is not enough money in this account to debit the given amount");
+                }
+                //True True False True
+                if (journalIdExists && debitAccountExists && !creditAccountExists && validBalance)
                 {
                     ModelState.AddModelError("JournalID", "An journal Entry with this ID already exists");
                     ModelState.AddModelError("CreditAccountNumber", "A credit account with this ID does not exist");
                 }
-                //True False True
-                if (journalIdExists && !debitAccountExists & creditAccountExists)
+
+                //True True False False
+                if (journalIdExists && debitAccountExists && !creditAccountExists && !validBalance)
+                {
+                    ModelState.AddModelError("JournalID", "An journal Entry with this ID already exists");
+                    ModelState.AddModelError("CreditAccountNumber", "A credit account with this ID does not exist");
+                    ModelState.AddModelError("DebitAccountNumber", "There is not enough money in this account to debit the given amount");
+                }
+                //True False True True
+                if (journalIdExists && !debitAccountExists && creditAccountExists)//if the account doesnt exist then validbalance will always be false
                 {
                     ModelState.AddModelError("JournalID", "An journal Entry with this ID already exists");
                     ModelState.AddModelError("DebitAccountNumber", "A debit account with this ID does not exist");
                 }
-                //True False False
-                if (journalIdExists && !debitAccountExists && !creditAccountExists)
+
+                //True False False True
+                if (journalIdExists && !debitAccountExists && !creditAccountExists)//if account doesnt exist then validBalance will always be false
                 {
                     ModelState.AddModelError("JournalID", "An journal Entry with this ID already exists");
                     ModelState.AddModelError("DebitAccountNumber", "A debit account with this ID does not exist");
                     ModelState.AddModelError("CreditAccountNumber", "A credit account with this ID does not exist");
                 }
                 //False True True
-                if (!journalIdExists && debitAccountExists && creditAccountExists)
+                if (!journalIdExists && debitAccountExists && creditAccountExists && validBalance)
                 {
                     journalEntry.Status = "Pending";
+                    journalEntry.DateApproved = DateTime.Today;
+                    journalEntry.Comment = " ";
                     db.JournalEntries.Add(journalEntry);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 //False True False
-                if (!journalIdExists && debitAccountExists && !creditAccountExists)
+                if (!journalIdExists && debitAccountExists && !creditAccountExists && !validBalance)
                 {
                     ModelState.AddModelError("CreditAccountNumber", "A credit account with this ID does not exist");
+                    ModelState.AddModelError("DebitAccountNumber", "There is not enough money in this account to debit the given amount");
                 }
                 //False False True
                 if (!journalIdExists && !debitAccountExists && creditAccountExists)
@@ -140,13 +166,17 @@ namespace UserWebApp.Controllers
                 if (!journalIdExists && !debitAccountExists && !creditAccountExists)
                 {
                     ModelState.AddModelError("CreditAccountNumber", "A credit account with this ID does not exist");
+                    ModelState.AddModelError("DebitAccountNumber", "A debit account with this ID does not exist");
                 }
-
+                if (!journalIdExists && debitAccountExists && creditAccountExists && !validBalance)
+                {
+                    ModelState.AddModelError("DebitAccountNumber", "There is not enough money in this account to debit the given amount");
+                }
 
                 //journalEntry.Status = "Pending Approval";
                 //db.JournalEntries.Add(journalEntry);
                 //db.SaveChanges();
-                
+
             }
 
             return View(journalEntry);
@@ -217,5 +247,52 @@ namespace UserWebApp.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public ActionResult Approve(JournalEntry journalEntry)
+        {
+
+            //change status to approved
+            journalEntry.Status = "Approved";
+
+
+            Ledger ledDebit = new Ledger();
+            ledDebit.DebitAccountNumber = journalEntry.DebitAccountNumber;
+            ledDebit.CreditAccountNumber = journalEntry.CreditAccountNumber;
+            ledDebit.Amount = journalEntry.Amount;
+
+            Ledger ledCredit = new Ledger();
+            ledCredit.DebitAccountNumber = journalEntry.DebitAccountNumber;
+            ledCredit.CreditAccountNumber = journalEntry.CreditAccountNumber;
+            ledCredit.Amount = journalEntry.Amount;
+
+
+            //update chart of accounts
+            foreach (ChartOfAccount c in db.ChartOfAccounts)
+            {
+                if (c.AccountNumber == journalEntry.DebitAccountNumber && c.NormalSide.Trim() == "Debit")
+                {
+                    c.Balance = c.Balance - journalEntry.Amount;
+                    ledDebit.NewBalance = c.Balance;
+                    break;
+                }
+            }
+
+            foreach (ChartOfAccount c in db.ChartOfAccounts)
+            {
+                if (c.AccountNumber == journalEntry.CreditAccountNumber && c.NormalSide.Trim() == "Credit")
+                {
+                    c.Balance = c.Balance + journalEntry.Amount;
+                    ledCredit.NewBalance = c.Balance;
+                    break;
+                }
+            }
+
+            db.Ledgers.Add(ledDebit);
+            db.Ledgers.Add(ledCredit);
+
+            return View("Index");
+        }
+
     }
 }

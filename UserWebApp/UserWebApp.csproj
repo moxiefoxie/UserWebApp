@@ -204,6 +204,7 @@
     <Compile Include="Controllers\ChartOfAccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JournalEntriesController.cs" />
+    <Compile Include="Controllers\LedgersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -278,6 +279,9 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JournalEntry.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ledger.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
@@ -404,6 +408,11 @@
     <Content Include="Views\ChartOfAccounts\EventLog.cshtml" />
     <Content Include="Views\ChartOfAccounts\Ledger.cshtml" />
     <Content Include="Views\ChartOfAccounts\JournalEntry.cshtml" />
+    <Content Include="Views\Ledgers\Create.cshtml" />
+    <Content Include="Views\Ledgers\Delete.cshtml" />
+    <Content Include="Views\Ledgers\Details.cshtml" />
+    <Content Include="Views\Ledgers\Edit.cshtml" />
+    <Content Include="Views\Ledgers\Index.cshtml" />
     <Content Include="Views\JournalEntries\Create.cshtml" />
     <Content Include="Views\JournalEntries\Delete.cshtml" />
     <Content Include="Views\JournalEntries\Details.cshtml" />
@@ -412,7 +421,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Journals\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -23,7 +23,7 @@ namespace UserWebApp.Models
         public Nullable<decimal> InitialBalance { get; set; }
         public string Debit { get; set; }
         public string Credit { get; set; }
-        public Nullable<decimal> Balance { get; set; }
+        public decimal Balance { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<int> UserID { get; set; }
         public string Orders { get; set; }
