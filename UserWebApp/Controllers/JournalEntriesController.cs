@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using UserWebApp.Models;
+using System.Data.Entity.Validation;
 
 namespace UserWebApp.Controllers
 {
@@ -46,7 +47,7 @@ namespace UserWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "JournalID,DebitAccountNumber,CreditAccountNumber,Amount")] JournalEntry journalEntry, ChartOfAccount chartOfAccount)
+        public ActionResult Create([Bind(Include = "JournalID,DebitAccountNumber,CreditAccountNumber,Amount,Status,DateApproved,Comment")] JournalEntry journalEntry, ChartOfAccount chartOfAccount)
         {
             if (ModelState.IsValid)
             {
@@ -146,7 +147,7 @@ namespace UserWebApp.Controllers
                 {
                     journalEntry.Status = "Pending";
                     journalEntry.DateApproved = DateTime.Today;
-                    journalEntry.Comment = " ";
+                    journalEntry.Comment = "No Comment";
                     db.JournalEntries.Add(journalEntry);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -206,9 +207,87 @@ namespace UserWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                //db.Entry(journalEntry).State = EntityState.Modified;
+                //db.SaveChanges();
+                //change status to approved
+                journalEntry.Status = "Approved";
                 db.Entry(journalEntry).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+
+                Ledger ledDebit = new Ledger();
+                ledDebit.LedgerID = journalEntry.JournalID;
+                ledDebit.DebitAccountNumber = journalEntry.DebitAccountNumber;
+                ledDebit.CreditAccountNumber = journalEntry.CreditAccountNumber;
+                ledDebit.Status = "Approved";
+                ledDebit.Amount = journalEntry.Amount;
+                ledDebit.DateApproved = DateTime.Today;
+                ledDebit.DateChanged = DateTime.Today;
+                ledDebit.Comment = "Ledger approved";
+
+                Ledger ledCredit = new Ledger();
+                ledCredit.LedgerID = journalEntry.JournalID + 1;
+                ledCredit.DebitAccountNumber = journalEntry.DebitAccountNumber;
+                ledCredit.CreditAccountNumber = journalEntry.CreditAccountNumber;
+                ledCredit.Amount = journalEntry.Amount;
+                ledCredit.Status = "Approved";
+                ledCredit.DateApproved = DateTime.Today;
+                ledCredit.DateChanged = DateTime.Today;
+                ledCredit.Comment = "Ledger approved";
+
+
+                //update chart of accounts
+                foreach (ChartOfAccount c in db.ChartOfAccounts)
+                {
+                    if (c.AccountNumber == journalEntry.DebitAccountNumber && c.NormalSide.Trim() == "Debit")
+                    {
+                        c.Balance = c.Balance - journalEntry.Amount;
+                        ledDebit.NewBalance = c.Balance;
+                        break;
+                    }
+                }
+
+                foreach (ChartOfAccount c in db.ChartOfAccounts)
+                {
+                    if (c.AccountNumber == journalEntry.CreditAccountNumber && c.NormalSide.Trim() == "Credit")
+                    {
+                        c.Balance = c.Balance + journalEntry.Amount;
+                        ledCredit.NewBalance = c.Balance;
+                        break;
+                    }
+                }
+
+                
+
+                
+                    
+                    //db.SaveChanges();
+
+                try
+                {
+                    db.Ledgers.Add(ledDebit);
+                    db.Ledgers.Add(ledCredit);
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                    {
+                        // Get entry
+
+                        System.Data.Entity.Infrastructure.DbEntityEntry entry = item.Entry;
+                        string entityTypeName = entry.Entity.GetType().Name;
+
+                        // Display or log error messages
+
+                        foreach (DbValidationError subItem in item.ValidationErrors)
+                        {
+                            string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                                     subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                            Console.WriteLine(message);
+                        }
+                    }
+                }
+
             }
             return View(journalEntry);
         }
@@ -259,12 +338,20 @@ namespace UserWebApp.Controllers
             Ledger ledDebit = new Ledger();
             ledDebit.DebitAccountNumber = journalEntry.DebitAccountNumber;
             ledDebit.CreditAccountNumber = journalEntry.CreditAccountNumber;
+            ledDebit.Status = "Approved";
             ledDebit.Amount = journalEntry.Amount;
+            ledDebit.DateApproved = DateTime.Today;
+            ledDebit.DateChanged = DateTime.Today;
+            ledDebit.Comment = "Ledger approved";
 
             Ledger ledCredit = new Ledger();
             ledCredit.DebitAccountNumber = journalEntry.DebitAccountNumber;
             ledCredit.CreditAccountNumber = journalEntry.CreditAccountNumber;
             ledCredit.Amount = journalEntry.Amount;
+            ledCredit.Status = "Approved";
+            ledCredit.DateApproved = DateTime.Today;
+            ledCredit.DateChanged = DateTime.Today;
+            ledCredit.Comment = "Ledger approved";
 
 
             //update chart of accounts
@@ -291,8 +378,10 @@ namespace UserWebApp.Controllers
             db.Ledgers.Add(ledDebit);
             db.Ledgers.Add(ledCredit);
 
-            return View("Index");
+            return View("~/Views/JournalEntries/Index.cshtml");
         }
+
+
 
     }
 }

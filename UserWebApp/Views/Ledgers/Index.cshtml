@@ -19,7 +19,13 @@
             @Html.DisplayNameFor(model => model.CreditAccountNumber)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.NewBalance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateChanged)
@@ -42,7 +48,13 @@
             @Html.DisplayFor(modelItem => item.CreditAccountNumber)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.NewBalance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateChanged)

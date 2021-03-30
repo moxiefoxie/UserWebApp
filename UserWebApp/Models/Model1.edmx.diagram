@@ -15,8 +15,8 @@
         <AssociationConnector Association="UserWebApp_dbModel1.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="UserWebApp_dbModel1.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <EntityTypeShape EntityType="UserWebApp_dbModel1.ChartOfAccount" Width="1.5" PointX="5.375" PointY="3.75" />
-        <EntityTypeShape EntityType="UserWebApp_dbModel1.Ledger" Width="1.5" PointX="9.625" PointY="3.875" />
         <EntityTypeShape EntityType="UserWebApp_dbModel1.JournalEntry" Width="1.5" PointX="7.5" PointY="3.875" />
+        <EntityTypeShape EntityType="UserWebApp_dbModel1.Ledger" Width="1.5" PointX="9.5" PointY="4" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

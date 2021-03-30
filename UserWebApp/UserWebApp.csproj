@@ -408,16 +408,16 @@
     <Content Include="Views\ChartOfAccounts\EventLog.cshtml" />
     <Content Include="Views\ChartOfAccounts\Ledger.cshtml" />
     <Content Include="Views\ChartOfAccounts\JournalEntry.cshtml" />
-    <Content Include="Views\Ledgers\Create.cshtml" />
-    <Content Include="Views\Ledgers\Delete.cshtml" />
-    <Content Include="Views\Ledgers\Details.cshtml" />
-    <Content Include="Views\Ledgers\Edit.cshtml" />
-    <Content Include="Views\Ledgers\Index.cshtml" />
     <Content Include="Views\JournalEntries\Create.cshtml" />
     <Content Include="Views\JournalEntries\Delete.cshtml" />
     <Content Include="Views\JournalEntries\Details.cshtml" />
     <Content Include="Views\JournalEntries\Edit.cshtml" />
     <Content Include="Views\JournalEntries\Index.cshtml" />
+    <Content Include="Views\Ledgers\Create.cshtml" />
+    <Content Include="Views\Ledgers\Delete.cshtml" />
+    <Content Include="Views\Ledgers\Details.cshtml" />
+    <Content Include="Views\Ledgers\Edit.cshtml" />
+    <Content Include="Views\Ledgers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

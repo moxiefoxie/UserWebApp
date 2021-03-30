@@ -46,7 +46,7 @@ namespace UserWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LedgerID,DebitAccountNumber,CreditAccountNumber,NewBalance,DateChanged,DateApproved,Comment")] Ledger ledger)
+        public ActionResult Create([Bind(Include = "LedgerID,DebitAccountNumber,CreditAccountNumber,Amount,NewBalance,Status,DateChanged,DateApproved,Comment")] Ledger ledger)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace UserWebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LedgerID,DebitAccountNumber,CreditAccountNumber,NewBalance,DateChanged,DateApproved,Comment")] Ledger ledger)
+        public ActionResult Edit([Bind(Include = "LedgerID,DebitAccountNumber,CreditAccountNumber,Amount,NewBalance,Status,DateChanged,DateApproved,Comment")] Ledger ledger)
         {
             if (ModelState.IsValid)
             {

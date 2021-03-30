@@ -232,16 +232,9 @@ namespace UserWebApp.Controllers
 
         public ActionResult Ledger(int id)
         {
-            if(id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ChartOfAccount chartOfAccount = db.ChartOfAccounts.Find(id);
-            if (chartOfAccount == null)
-            {
-                return HttpNotFound();
-            }
-            return View(chartOfAccount);
+            
+            return View("~/Views/Ledgers/Index.cshtml");
+
         }
 
         public ActionResult JournalEntry()

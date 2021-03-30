@@ -1,9 +1,67 @@
-﻿@model UserWebApp.Models.ChartOfAccount
+﻿@model IEnumerable<UserWebApp.Models.Ledger>
 
 @{
     ViewBag.Title = "Ledger";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>This is ledger for the @Html.DisplayFor(modelItem => modelItem.AccountName) account</h2>
+<h2>This is ledger for the account</h2>
 
+<table class="table">
+    <tr>
+        <th>
+
+            Ledger ID
+
+        </th>
+        <th>
+
+            Debit Account Number
+
+        </th>
+        <th>
+
+            Credit Account Number
+
+        </th>
+        <th>
+
+            Amount
+
+        </th>
+        <th>
+            New Balance
+        </th>
+        <th>
+
+            Date Approved
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.LedgerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DebitAccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditAccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NewBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateApproved)
+            </td>
+        </tr>
+    }
+
+</table>

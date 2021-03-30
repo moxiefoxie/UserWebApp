@@ -337,8 +337,8 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <EntitySet Name="ChartOfAccounts" EntityType="UserWebApp_dbModel1.ChartOfAccount" />
-          <EntitySet Name="Ledgers" EntityType="UserWebApp_dbModel1.Ledger" />
           <EntitySet Name="JournalEntries" EntityType="UserWebApp_dbModel1.JournalEntry" />
+          <EntitySet Name="Ledgers" EntityType="UserWebApp_dbModel1.Ledger" />
         </EntityContainer>
         <EntityType Name="ChartOfAccount">
           <Key>
@@ -360,6 +360,18 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <Property Name="Statements" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Comment" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
+        <EntityType Name="JournalEntry">
+          <Key>
+            <PropertyRef Name="JournalID" />
+          </Key>
+          <Property Name="JournalID" Type="Int32" Nullable="false" />
+          <Property Name="DebitAccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="CreditAccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateApproved" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Ledger">
           <Key>
             <PropertyRef Name="LedgerID" />
@@ -372,19 +384,7 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
           <Property Name="Status" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DateChanged" Type="DateTime" Precision="0" />
           <Property Name="DateApproved" Type="DateTime" Precision="0" />
-          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="JournalEntry">
-          <Key>
-            <PropertyRef Name="JournalID" />
-          </Key>
-          <Property Name="JournalID" Type="Int32" Nullable="false" />
-          <Property Name="DebitAccountNumber" Type="Int32" Nullable="false" />
-          <Property Name="CreditAccountNumber" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateApproved" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Comment" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Nullable="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -483,6 +483,19 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="JournalEntries">
+            <EntityTypeMapping TypeName="UserWebApp_dbModel1.JournalEntry">
+              <MappingFragment StoreEntitySet="JournalEntry">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="DateApproved" ColumnName="DateApproved" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CreditAccountNumber" ColumnName="CreditAccountNumber" />
+                <ScalarProperty Name="DebitAccountNumber" ColumnName="DebitAccountNumber" />
+                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Ledgers">
             <EntityTypeMapping TypeName="UserWebApp_dbModel1.Ledger">
               <MappingFragment StoreEntitySet="Ledger">
@@ -495,19 +508,6 @@ warning 6002: The table/view 'UserWebApp_db.dbo.__MigrationHistory' does not hav
                 <ScalarProperty Name="CreditAccountNumber" ColumnName="CreditAccountNumber" />
                 <ScalarProperty Name="DebitAccountNumber" ColumnName="DebitAccountNumber" />
                 <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JournalEntries">
-            <EntityTypeMapping TypeName="UserWebApp_dbModel1.JournalEntry">
-              <MappingFragment StoreEntitySet="JournalEntry">
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="DateApproved" ColumnName="DateApproved" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="CreditAccountNumber" ColumnName="CreditAccountNumber" />
-                <ScalarProperty Name="DebitAccountNumber" ColumnName="DebitAccountNumber" />
-                <ScalarProperty Name="JournalID" ColumnName="JournalID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
